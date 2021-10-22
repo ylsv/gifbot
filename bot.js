@@ -1,14 +1,22 @@
 import { Telegraf } from 'telegraf'
 import dotenv from 'dotenv'
 dotenv.config()
-import { showRandomGif } from './api-functions.js'
-
+import { sendOptionsKeyboard, showRandomGif } from './bot-actions.js'
 const bot = new Telegraf(process.env.BOT_TOKEN)
-bot.start((ctx) => ctx.reply('Привет'))
-bot.help((ctx) => ctx.reply('Пиши любой текст - пришлю рандомную гифку'))
-bot.on('sticker', (ctx) => ctx.reply('Ха-ха 😜'))
-bot.on('text', ctx => showRandomGif(ctx))
-bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 
+// default commands
+bot.help(ctx => ctx.reply('Присылаю интерактивные изображения на ваш вкус'))
+bot.start(ctx => sendOptionsKeyboard(ctx, bot))
+
+bot.action('dog', ctx => {
+    //reply logic goes here
+})
+
+// random actions to add more interactivity
+bot.on('sticker', ctx => ctx.reply('😜'))
+bot.hears(/рандом/i, ctx => showRandomGif(ctx))
+bot.hears(/random/i, ctx => showRandomGif(ctx))
+bot.hears(/привет/i, ctx => ctx.reply('Привет-привет!'))
+bot.hears(/сиськи/i, ctx => ctx.reply('Письки 😱'))
 
 bot.launch()
