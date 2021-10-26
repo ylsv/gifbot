@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { GIF_OPTIONS, RANDOM_OPTION } from './constants.js'
 
-const showRandomGif = async ctx => {
+async function showRandomGif(ctx) {
   try {
     ctx.reply('Загружаем...🤔')
     const res = await axios.get(
@@ -12,17 +13,55 @@ const showRandomGif = async ctx => {
   }
 }
 
-const sendOptionsKeyboard = (ctx, bot) => {
-  bot.telegram.sendMessage(ctx.chat.id, 'Что вам прислать?', {
+async function showSpecificGif (ctx) {
+  try {
+    ctx.reply('Загружаем...🤔')
+    const offset = Math.floor(Math.random() * 500)
+    const res = await axios.get(
+      `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${ctx.update.callback_query.data}&limit=1&offset=${offset}&rating=g&lang=ru`
+    )
+    const gifArray = res.data.data
+    ctx.deleteMessage()
+    gifArray.forEach(gif => ctx.replyWithVideo(gif.images.downsized_medium.url))
+  } catch (err) {
+    ctx.reply('Ошибочка, попробуй еще раз')
+  }
+}
+
+function sendOptionsKeyboard (ctx, bot, questionMessage) {
+  bot.telegram.sendMessage(ctx.chat.id, questionMessage, {
     reply_markup: {
       inline_keyboard: [
         [
-          { text: 'песиков', callback_data: 'dog' },
-          { text: 'кошаков', callback_data: 'cat' },
+          { text: GIF_OPTIONS.KITTEN.text, callback_data: GIF_OPTIONS.KITTEN.callback },
+          { text: GIF_OPTIONS.DOGS.text, callback_data: GIF_OPTIONS.DOGS.callback },
+        ],
+        [
+          { text: GIF_OPTIONS.AUTUMN.text, callback_data: GIF_OPTIONS.AUTUMN.callback },
+          { text: GIF_OPTIONS.WINTER.text, callback_data: GIF_OPTIONS.WINTER.callback },
+        ],
+        [
+          { text: GIF_OPTIONS.SPRING.text, callback_data: GIF_OPTIONS.SPRING.callback },
+          { text: GIF_OPTIONS.SUMMER.text, callback_data: GIF_OPTIONS.SUMMER.callback },
+        ],
+        [
+          { text: GIF_OPTIONS.SKY.text, callback_data: GIF_OPTIONS.SKY.callback },
+          { text: GIF_OPTIONS.CLOUDS.text, callback_data: GIF_OPTIONS.CLOUDS.callback },
+        ],
+        [
+          { text: GIF_OPTIONS.MOUNTAINS.text, callback_data: GIF_OPTIONS.MOUNTAINS.callback },
+          { text: GIF_OPTIONS.WATERFALL.text, callback_data: GIF_OPTIONS.WATERFALL.callback },
+        ],
+        [
+          { text: GIF_OPTIONS.JOKES.text, callback_data: GIF_OPTIONS.JOKES.callback },
+          { text: GIF_OPTIONS.MOTIVATION.text, callback_data: GIF_OPTIONS.MOTIVATION.callback },
+        ],
+        [
+          { text: RANDOM_OPTION.text, callback_data: RANDOM_OPTION.callback },
         ],
       ],
     },
   })
 }
 
-export { showRandomGif, sendOptionsKeyboard }
+export { showRandomGif, showSpecificGif, sendOptionsKeyboard }
