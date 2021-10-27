@@ -37,5 +37,5 @@ bot.hears(/как дела\??/i, ctx => {
     ctx.reply(response)
 })
 
-// bot.launch()
-export default bot
+bot.launch()
+// export default bot
