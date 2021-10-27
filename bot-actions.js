@@ -21,7 +21,6 @@ async function showSpecificGif (ctx) {
       `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${ctx.update.callback_query.data}&limit=1&offset=${offset}&rating=g&lang=ru`
     )
     const gifArray = res.data.data
-    ctx.deleteMessage()
     gifArray.forEach(gif => ctx.replyWithVideo(gif.images.downsized_medium.url))
   } catch (err) {
     ctx.reply('Ошибочка, попробуй еще раз')

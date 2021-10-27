@@ -2,7 +2,7 @@ import { Telegraf } from 'telegraf'
 import dotenv from 'dotenv'
 dotenv.config()
 import { sendOptionsKeyboard, showRandomGif, showSpecificGif } from './bot-actions.js'
-import { GIF_OPTIONS, HELPTEXT, RANDOM_OPTION } from './constants.js'
+import { GIF_OPTIONS, HELPTEXT, RANDOM_OPTION, WHATSUP_RESPONSE_OPTIONS } from './constants.js'
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
@@ -15,21 +15,24 @@ Object.entries(GIF_OPTIONS).forEach(entry => {
     const cb = entry[1].callback
     bot.action(cb, ctx => {
         ctx.deleteMessage()
-        showSpecificGif(ctx, bot)
+        showSpecificGif(ctx)
         setTimeout(() => {sendOptionsKeyboard(ctx, bot, 'Что-нибудь еще? 😀')}, 3000)
     })
 })
 bot.action(RANDOM_OPTION.callback, ctx => {
     ctx.deleteMessage()
-    showRandomGif(ctx, bot)
+    showRandomGif(ctx)
     setTimeout(() => {sendOptionsKeyboard(ctx, bot, 'Что-нибудь еще? 😀')}, 3000)
 })
 
 // random actions to add more interactivity
 bot.on('sticker', ctx => ctx.reply('😜'))
-bot.hears(/рандом/i, ctx => showRandomGif(ctx, bot))
-bot.hears(/random/i, ctx => showRandomGif(ctx, bot))
-bot.hears(/привет/i, ctx => ctx.reply('Привет-привет!'))
-bot.hears(/сиськи/i, ctx => ctx.reply('Сосиськи 😱'))
+bot.hears(/рандом/i, ctx => showRandomGif(ctx))
+bot.hears(/random/i, ctx => showRandomGif(ctx))
+bot.hears(/привет/i, ctx => ctx.reply(`Привет-привет, ${ctx.chat.first_name}!`))
+bot.hears(/как дела\??/i, ctx => {
+    const response = WHATSUP_RESPONSE_OPTIONS[Math.floor(Math.random()*WHATSUP_RESPONSE_OPTIONS.length)]
+    ctx.reply(response)
+})
 
 bot.launch()
