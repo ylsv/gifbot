@@ -1,5 +1,5 @@
 // import { Telegraf } from 'telegraf'
-import { Composer } from 'micro-bot'
+const { Composer } = require('micro-bot')
 import dotenv from 'dotenv'
 dotenv.config()
 import { sendOptionsKeyboard, showRandomGif, showSpecificGif } from './bot-actions.js'
