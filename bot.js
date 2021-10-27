@@ -1,5 +1,5 @@
 // import { Telegraf } from 'telegraf'
-const { Composer } = require('micro-bot')
+import { Composer } from 'micro-bot'
 import dotenv from 'dotenv'
 dotenv.config()
 import { sendOptionsKeyboard, showRandomGif, showSpecificGif } from './bot-actions.js'
@@ -38,4 +38,4 @@ bot.hears(/как дела\??/i, ctx => {
 })
 
 // bot.launch()
-module.exports = bot
+export default bot
