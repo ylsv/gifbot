@@ -59,4 +59,4 @@ const WHATSUP_RESPONSE_OPTIONS = [
     'Все супер!)', 'Лучше всех!', 'Огонь!', 'Оличненько)', 'Нормуль!', 'Сойдет)', 'Покатит!', 'Да норм все)',
 ]
 
-export { GIF_OPTIONS, RANDOM_OPTION, HELPTEXT, WHATSUP_RESPONSE_OPTIONS }
+module.exports = { GIF_OPTIONS, RANDOM_OPTION, HELPTEXT, WHATSUP_RESPONSE_OPTIONS }

@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { GIF_OPTIONS, RANDOM_OPTION } from './constants.js'
+const axios = require('axios')
+const { GIF_OPTIONS, RANDOM_OPTION } = require('./constants')
 
 async function showRandomGif(ctx) {
   try {
@@ -63,4 +63,4 @@ function sendOptionsKeyboard (ctx, bot, questionMessage) {
   })
 }
 
-export { showRandomGif, showSpecificGif, sendOptionsKeyboard }
+module.exports = { showRandomGif, showSpecificGif, sendOptionsKeyboard }

@@ -1,12 +1,12 @@
-// import { Telegraf } from 'telegraf'
-import { Composer } from 'micro-bot'
-import dotenv from 'dotenv'
+const { Telegraf } = require('telegraf')
+// const { Composer } = require('micro-bot')
+const dotenv = require('dotenv')
 dotenv.config()
-import { sendOptionsKeyboard, showRandomGif, showSpecificGif } from './bot-actions.js'
-import { GIF_OPTIONS, HELPTEXT, RANDOM_OPTION, WHATSUP_RESPONSE_OPTIONS } from './constants.js'
+const { sendOptionsKeyboard, showRandomGif, showSpecificGif } = require('./bot-actions')
+const { GIF_OPTIONS, HELPTEXT, RANDOM_OPTION, WHATSUP_RESPONSE_OPTIONS } = require('./constants')
 
-// const bot = new Telegraf(process.env.BOT_TOKEN)
-const bot = new Composer()
+const bot = new Telegraf(process.env.BOT_TOKEN)
+// const bot = new Composer()
 
 // default commands
 bot.help(ctx => ctx.reply(HELPTEXT))
@@ -37,5 +37,5 @@ bot.hears(/как дела\??/i, ctx => {
     ctx.reply(response)
 })
 
-// bot.launch()
-export default bot
+bot.launch()
+// module.exports = bot
