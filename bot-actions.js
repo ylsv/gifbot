@@ -13,7 +13,7 @@ async function showRandomGif(ctx) {
   }
 }
 
-async function showSpecificGif (ctx) {
+async function showSpecificGif(ctx) {
   try {
     ctx.reply('Загружаем...🤔')
     const offset = Math.floor(Math.random() * 500)
@@ -27,7 +27,8 @@ async function showSpecificGif (ctx) {
   }
 }
 
-function sendOptionsKeyboard (ctx, bot, questionMessage) {
+function sendOptionsKeyboard(ctx, bot, questionMessage) {
+  console.log(bot)
   bot.telegram.sendMessage(ctx.chat.id, questionMessage, {
     reply_markup: {
       inline_keyboard: [
