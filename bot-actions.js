@@ -28,8 +28,7 @@ async function showSpecificGif(ctx) {
 }
 
 function sendOptionsKeyboard(ctx, bot, questionMessage) {
-  console.log(bot.handler)
-  bot.handler.sendMessage(ctx.chat.id, questionMessage, {
+  bot.telegram.sendMessage(ctx.chat.id, questionMessage, {
     reply_markup: {
       inline_keyboard: [
         [

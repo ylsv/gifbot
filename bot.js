@@ -38,4 +38,7 @@ bot.hears(/как дела\??/i, ctx => {
 })
 
 // bot.launch()
+bot.init = async (mBot) => {
+    bot.telegram = mBot.telegram;
+}
 module.exports = bot
