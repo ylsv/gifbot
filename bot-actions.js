@@ -28,8 +28,7 @@ async function showSpecificGif(ctx) {
 }
 
 function sendOptionsKeyboard(ctx, bot, questionMessage) {
-  console.log('err', bot, bot.Composer)
-  bot.Composer.sendMessage(ctx.chat.id, questionMessage, {
+  bot.sendMessage(ctx.chat.id, questionMessage, {
     reply_markup: {
       inline_keyboard: [
         [
