@@ -1,1 +1,1 @@
-web: node bot.js -p $PORT
+web: micro-bot -p $PORT
