@@ -1,12 +1,12 @@
-const { Telegraf } = require('telegraf')
-// const { Composer } = require('micro-bot')
+// const { Telegraf } = require('telegraf')
+const { Composer } = require('micro-bot')
 const dotenv = require('dotenv')
 dotenv.config()
 const { sendOptionsKeyboard, showRandomGif, showSpecificGif } = require('./bot-actions')
 const { GIF_OPTIONS, HELPTEXT, RANDOM_OPTION, WHATSUP_RESPONSE_OPTIONS } = require('./constants')
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
-// const bot = new Composer()
+// const bot = new Telegraf(process.env.BOT_TOKEN)
+const bot = new Composer()
 
 // default commands
 bot.help(ctx => ctx.reply(HELPTEXT))
@@ -37,5 +37,5 @@ bot.hears(/как дела\??/i, ctx => {
     ctx.reply(response)
 })
 
-bot.launch()
-// module.exports = bot
+// bot.launch()
+module.exports = bot
